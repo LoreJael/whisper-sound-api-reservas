@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Evaluacion1_LoretoPradel.Data;
 using Evaluacion1_LoretoPradel.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Evaluacion1_LoretoPradel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReservasController : ControllerBase
     {
         private readonly ReservasContext _context;
