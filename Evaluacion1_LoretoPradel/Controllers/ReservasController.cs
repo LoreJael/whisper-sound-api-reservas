@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Evaluacion1_LoretoPradel.Data;
 using Evaluacion1_LoretoPradel.Model;
 using Microsoft.AspNetCore.Authorization;
+using Evaluacion1_LoretoPradel.Hubs;      
+using Microsoft.AspNetCore.SignalR;       
 
 namespace Evaluacion1_LoretoPradel.Controllers
 {
@@ -17,10 +19,12 @@ namespace Evaluacion1_LoretoPradel.Controllers
     public class ReservasController : ControllerBase
     {
         private readonly ReservasContext _context;
+        private readonly IHubContext<ReservasHub> _hubContext;
 
-        public ReservasController(ReservasContext context)
+        public ReservasController(ReservasContext context, IHubContext<ReservasHub> hubContext) 
         {
             _context = context;
+            _hubContext = hubContext; 
         }
 
         // GET: api/Reservas
@@ -84,6 +88,9 @@ namespace Evaluacion1_LoretoPradel.Controllers
         {
             _context.Reserva.Add(reserva);
             await _context.SaveChangesAsync();
+
+            //avisa a todas las pantallas conectadas que hay una reserva nueva
+            await _hubContext.Clients.All.SendAsync("ReservaCreada", reserva.Id);
 
             return CreatedAtAction("GetReserva", new { id = reserva.Id }, reserva);
         }

@@ -1,0 +1,426 @@
+/* ---------- Paleta y tipografías ---------- */
+:root {
+    --marfil: #F8F2E8;
+    --marfil-claro: #FFFCF7;
+    --salvia: #82947A;
+    --salvia-texto: #5F6F58;
+    --musgo: #435744;
+    --tinta: #273B34;
+    --lavanda: #B6A0C6;
+    --lavanda-texto: #6E5683;
+    --dorado: #D5B77B;
+    --dorado-texto: #8A6A2C;
+    --rosa: #C06C83;
+    --rosa-texto: #9C4A62;
+    --linea: rgba(67, 87, 68, 0.15);
+
+    --fuente-titulos: "Cormorant Garamond", Georgia, serif;
+    --fuente-texto: "DM Sans", Arial, sans-serif;
+    --fuente-detalle: "Parisienne", cursive;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--marfil);
+    color: var(--tinta);
+    font-family: var(--fuente-texto);
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* ---------- Logo ---------- */
+.logo {
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    font-size: 46px;
+    line-height: 1;
+    color: var(--musgo);
+}
+
+.logo-amp {
+    font-family: var(--fuente-detalle);
+    font-weight: 400;
+    color: var(--dorado);
+    font-size: 1.1em;
+    margin: 0 2px;
+}
+
+.logo-pequeno {
+    font-size: 28px;
+}
+
+/* ---------- Pantalla de inicio de sesión ---------- */
+.login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+
+.login-tarjeta {
+    width: 100%;
+    max-width: 390px;
+    background: var(--marfil-claro);
+    border: 1px solid var(--linea);
+    border-radius: 24px;
+    padding: 48px 40px 36px;
+    text-align: center;
+}
+
+.onda {
+    display: block;
+    width: 120px;
+    height: 16px;
+    margin: 18px auto 6px;
+}
+
+.onda path {
+    fill: none;
+    stroke: var(--dorado);
+    stroke-width: 1.2;
+}
+
+.firma {
+    margin: 0 0 32px;
+    font-family: var(--fuente-detalle);
+    font-size: 24px;
+    color: var(--salvia);
+}
+
+#formLogin {
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--musgo);
+}
+
+input {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    font: inherit;
+    color: var(--tinta);
+    background: var(--marfil);
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--lavanda);
+    box-shadow: 0 0 0 3px rgba(182, 160, 198, 0.35);
+}
+
+.btn-principal {
+    width: 100%;
+    margin-top: 6px;
+    padding: 13px;
+    font: inherit;
+    font-weight: 500;
+    color: var(--marfil);
+    background: var(--musgo);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-principal:hover {
+    background: var(--tinta);
+}
+
+.btn-principal:focus-visible,
+.btn-guardar:focus-visible {
+    outline: 2px solid var(--lavanda);
+    outline-offset: 3px;
+}
+
+.mensaje-error {
+    min-height: 1.5em;
+    margin: 14px 0 0;
+    font-size: 14px;
+    text-align: center;
+    color: var(--rosa-texto);
+}
+
+/* ---------- Panel: encabezado ---------- */
+.encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 40px;
+    border-bottom: 1px solid var(--linea);
+}
+
+.conexion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rosa-texto);
+    background: rgba(192, 108, 131, 0.12);
+    border-radius: 999px;
+}
+
+.conexion::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--rosa);
+}
+
+.conexion.conectado {
+    color: var(--musgo);
+    background: rgba(130, 148, 122, 0.2);
+}
+
+.conexion.conectado::before {
+    background: var(--salvia);
+}
+
+/* ---------- Panel: contenido ---------- */
+.contenido {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Permite que la tabla se desplace hacia el lado en vez de ensanchar la página */
+.contenido > * {
+    min-width: 0;
+}
+
+h2 {
+    margin: 0 0 4px;
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--musgo);
+}
+
+.firma-pequena {
+    margin-left: 4px;
+    font-family: var(--fuente-detalle);
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--dorado-texto);
+}
+
+.ayuda {
+    margin: 0 0 22px;
+    font-size: 14px;
+    color: var(--salvia-texto);
+}
+
+/* ---------- Tabla de reservas ---------- */
+.tabla-contenedor {
+    background: var(--marfil-claro);
+    border: 1px solid var(--linea);
+    border-radius: 20px;
+    overflow-x: auto;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.tabla th {
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    color: var(--salvia-texto);
+    border-bottom: 1px solid var(--linea);
+    white-space: nowrap;
+}
+
+.tabla td {
+    padding: 16px 16px;
+    border-bottom: 1px solid var(--linea);
+    vertical-align: middle;
+}
+
+.tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.col-id {
+    font-family: var(--fuente-titulos);
+    font-size: 20px;
+    font-weight: 600;
+    font-variant-numeric: lining-nums;
+    color: var(--dorado-texto);
+}
+
+.fecha-dia {
+    display: block;
+    white-space: nowrap;
+}
+
+.fecha-hora {
+    display: block;
+    font-size: 13px;
+    color: var(--salvia-texto);
+}
+
+.vacio {
+    padding: 40px 18px;
+    text-align: center;
+    color: var(--salvia-texto);
+}
+
+/* Etiquetas de estado */
+.estado {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+.estado-pendiente {
+    color: var(--dorado-texto);
+    background: rgba(213, 183, 123, 0.25);
+}
+
+.estado-confirmada {
+    color: var(--musgo);
+    background: rgba(130, 148, 122, 0.22);
+}
+
+.estado-cancelada {
+    color: var(--rosa-texto);
+    background: rgba(192, 108, 131, 0.15);
+}
+
+/* Selector y botón de cada fila */
+.col-accion {
+    white-space: nowrap;
+}
+
+select {
+    padding: 7px 10px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--tinta);
+    background: var(--marfil);
+    border: 1px solid var(--linea);
+    border-radius: 10px;
+}
+
+.btn-guardar {
+    margin-left: 6px;
+    padding: 7px 16px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--lavanda-texto);
+    background: transparent;
+    border: 1px solid var(--lavanda);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-guardar:hover {
+    background: rgba(182, 160, 198, 0.25);
+}
+
+/* ---------- Actividad en vivo ---------- */
+.actividad {
+    list-style: none;
+    margin: 18px 0 0 4px;
+    padding: 0;
+    border-left: 1px solid rgba(213, 183, 123, 0.6);
+}
+
+.actividad:empty::after {
+    content: "Los cambios aparecerán aquí apenas ocurran.";
+    display: block;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--salvia-texto);
+}
+
+.actividad li {
+    position: relative;
+    padding: 0 0 18px 18px;
+    font-size: 14px;
+}
+
+.actividad li::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--lavanda);
+}
+
+.actividad-hora {
+    display: block;
+    font-size: 12px;
+    color: var(--dorado-texto);
+}
+
+.actividad li.error {
+    color: var(--rosa-texto);
+}
+
+.actividad li.error::before {
+    background: var(--rosa);
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 860px) {
+    .encabezado {
+        padding: 16px;
+    }
+
+    .contenido {
+        grid-template-columns: 1fr;
+        padding: 24px 16px;
+        gap: 36px;
+    }
+
+    .login-tarjeta {
+        padding: 40px 24px 28px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}

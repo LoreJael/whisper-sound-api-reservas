@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>whisper&amp;Sound | Reservas</title>
+
+    <!-- Tipografías desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Pantalla 1: inicio de sesión -->
+    <section id="pantallaLogin" class="login">
+        <div class="login-tarjeta">
+            <h1 class="logo">whisper<span class="logo-amp">&amp;</span>Sound</h1>
+
+            <svg class="onda" viewBox="0 0 120 16" aria-hidden="true">
+                <path d="M0 8 Q 7.5 0 15 8 T 30 8 T 45 8 T 60 8 T 75 8 T 90 8 T 105 8 T 120 8" />
+            </svg>
+
+            <p class="firma">consulta fonoaudiológica</p>
+
+            <form id="formLogin">
+                <label for="usuarioInput">Usuario</label>
+                <input type="text" id="usuarioInput" autocomplete="username" required />
+
+                <label for="passwordInput">Contraseña</label>
+                <input type="password" id="passwordInput" autocomplete="current-password" required />
+
+                <button type="submit" class="btn-principal">Ingresar</button>
+                <p id="errorLogin" class="mensaje-error"></p>
+            </form>
+        </div>
+    </section>
+
+    
+    <div id="pantallaPanel" class="panel oculto">
+        <header class="encabezado">
+            <p class="logo logo-pequeno">whisper<span class="logo-amp">&amp;</span>Sound</p>
+            <span id="estadoConexion" class="conexion">Desconectado</span>
+        </header>
+
+        <main class="contenido">
+            <section>
+                <h2>Reservas</h2>
+                <p class="ayuda">Cambia el estado de una hora o cancelala según corresponda.</p>
+
+                <div class="tabla-contenedor">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Paciente</th>
+                                <th>Profesional</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Cambiar estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaReservas"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <aside>
+                <h2>Actividad <span class="firma-pequena">en vivo</span></h2>
+                <ul id="listaActividad" class="actividad"></ul>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Cliente oficial de SignalR desde CDN (igual que en el ejercicio de clases) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
