@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Evaluacion1_LoretoPradel.Data;
 using Evaluacion1_LoretoPradel.Model;
 using Microsoft.AspNetCore.Authorization;
-using Evaluacion1_LoretoPradel.Hubs;      
-using Microsoft.AspNetCore.SignalR;       
+using Evaluacion1_LoretoPradel.Hubs;
+using Microsoft.AspNetCore.SignalR;
+using Evaluacion1_LoretoPradel.Services;
 
 namespace Evaluacion1_LoretoPradel.Controllers
 {
@@ -20,11 +21,13 @@ namespace Evaluacion1_LoretoPradel.Controllers
     {
         private readonly ReservasContext _context;
         private readonly IHubContext<ReservasHub> _hubContext;
+        private readonly WebhookService _webhookService;
 
-        public ReservasController(ReservasContext context, IHubContext<ReservasHub> hubContext) 
+        public ReservasController(ReservasContext context, IHubContext<ReservasHub> hubContext, WebhookService webhookService)
         {
             _context = context;
-            _hubContext = hubContext; 
+            _hubContext = hubContext;
+            _webhookService = webhookService;
         }
 
         // GET: api/Reservas
@@ -40,7 +43,7 @@ namespace Evaluacion1_LoretoPradel.Controllers
         {
             var reserva = await _context.Reserva
                 .Include(r => r.Cliente)
-                .FirstOrDefaultAsync(r => r.Id == id); 
+                .FirstOrDefaultAsync(r => r.Id == id);
 
             if (reserva == null)
             {
@@ -91,6 +94,16 @@ namespace Evaluacion1_LoretoPradel.Controllers
 
             //avisa a todas las pantallas conectadas que hay una reserva nueva
             await _hubContext.Clients.All.SendAsync("ReservaCreada", reserva.Id);
+
+            // Avisa al servicio externo que se registró una reserva nueva
+            await _webhookService.EnviarAsync("reserva.creada", new
+            {
+                reservaId = reserva.Id,
+                reserva.ClienteId,
+                reserva.NombreProfesional,
+                reserva.Fecha,
+                reserva.Estado
+            });
 
             return CreatedAtAction("GetReserva", new { id = reserva.Id }, reserva);
         }
