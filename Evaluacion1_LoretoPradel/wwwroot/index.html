@@ -42,13 +42,36 @@
     <div id="pantallaPanel" class="panel oculto">
         <header class="encabezado">
             <p class="logo logo-pequeno">whisper<span class="logo-amp">&amp;</span>Sound</p>
-            <span id="estadoConexion" class="conexion">Desconectado</span>
+            <div class="encabezado-estados">
+                <span id="estadoResumen" class="conexion">Resumen detenido</span>
+                <span id="estadoConexion" class="conexion">Desconectado</span>
+            </div>
         </header>
 
         <main class="contenido">
             <section>
                 <h2>Reservas</h2>
                 <p class="ayuda">Cambia el estado de una hora o cancelala según corresponda.</p>
+
+                <!-- Resumen en vivo: los números llegan por Server-Sent Events -->
+                <div class="resumen">
+                    <div class="resumen-tarjeta">
+                        <span id="resumenTotal" class="resumen-numero">–</span>
+                        <span class="resumen-etiqueta">Total</span>
+                    </div>
+                    <div class="resumen-tarjeta resumen-pendiente">
+                        <span id="resumenPendientes" class="resumen-numero">–</span>
+                        <span class="resumen-etiqueta">Pendientes</span>
+                    </div>
+                    <div class="resumen-tarjeta resumen-confirmada">
+                        <span id="resumenConfirmadas" class="resumen-numero">–</span>
+                        <span class="resumen-etiqueta">Confirmadas</span>
+                    </div>
+                    <div class="resumen-tarjeta resumen-cancelada">
+                        <span id="resumenCanceladas" class="resumen-numero">–</span>
+                        <span class="resumen-etiqueta">Canceladas</span>
+                    </div>
+                </div>
 
                 <div class="tabla-contenedor">
                     <table class="tabla">

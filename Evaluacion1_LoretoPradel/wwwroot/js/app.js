@@ -12,6 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const estadoConexion = document.getElementById("estadoConexion");
     const tablaReservas = document.getElementById("tablaReservas");
     const listaActividad = document.getElementById("listaActividad");
+    const estadoResumen = document.getElementById("estadoResumen");
+    const resumenTotal = document.getElementById("resumenTotal");
+    const resumenPendientes = document.getElementById("resumenPendientes");
+    const resumenConfirmadas = document.getElementById("resumenConfirmadas");
+    const resumenCanceladas = document.getElementById("resumenCanceladas");
 
     // 1. Iniciar sesión con la API REST (AuthController)
     formLogin.addEventListener("submit", async (e) => {
@@ -40,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         await cargarReservas();
         await conectarHub();
+        conectarResumen();
     });
 
     // 2. Traer las reservas desde la API REST (ReservasController)
@@ -125,6 +131,40 @@ document.addEventListener("DOMContentLoaded", () => {
             agregarActividad("No se pudo conectar al servidor en tiempo real.", true);
             console.error(err);
         }
+    }
+
+    // 5. Escuchar el resumen de reservas con Server-Sent Events (EventosController)
+    function conectarResumen() {
+        // EventSource no permite enviar headers, por eso el token va en la URL
+        const fuente = new EventSource("/api/Eventos/resumen?access_token=" + token);
+
+        // Se ejecuta cada vez que el servidor envía un evento con "event: resumen"
+        fuente.addEventListener("resumen", (e) => {
+            const resumen = JSON.parse(e.data);
+
+            resumenTotal.textContent = resumen.total;
+            resumenPendientes.textContent = resumen.pendientes;
+            resumenConfirmadas.textContent = resumen.confirmadas;
+            resumenCanceladas.textContent = resumen.canceladas;
+        });
+
+        // La conexión SSE se abrió (o se volvió a abrir después de un corte)
+        fuente.onopen = () => {
+            estadoResumen.textContent = "Resumen en vivo";
+            estadoResumen.classList.add("conectado");
+        };
+
+        // La conexión se cortó: EventSource intenta reconectarse solo cada 5 segundos
+        fuente.onerror = () => {
+            estadoResumen.classList.remove("conectado");
+
+            if (fuente.readyState === EventSource.CLOSED) {
+                // El servidor rechazó la conexión (por ejemplo, token vencido) y ya no reintenta
+                estadoResumen.textContent = "Resumen detenido";
+            } else {
+                estadoResumen.textContent = "Reconectando resumen...";
+            }
+        };
     }
 
     // 4. Botón "Guardar" de cada fila: llama al método CambiarEstado del Hub

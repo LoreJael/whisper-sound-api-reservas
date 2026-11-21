@@ -424,3 +424,58 @@ select {
         transition: none !important;
     }
 }
+
+/* ---------- Resumen en vivo (SSE) ---------- */
+.encabezado-estados {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.resumen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.resumen-tarjeta {
+    padding: 16px 18px;
+    background: var(--marfil-claro);
+    border: 1px solid var(--linea);
+    border-radius: 18px;
+}
+
+.resumen-numero {
+    display: block;
+    font-family: var(--fuente-titulos);
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.1;
+    font-variant-numeric: lining-nums;
+    color: var(--tinta);
+}
+
+.resumen-etiqueta {
+    font-size: 13px;
+    color: var(--salvia-texto);
+}
+
+.resumen-pendiente .resumen-numero {
+    color: var(--dorado-texto);
+}
+
+.resumen-confirmada .resumen-numero {
+    color: var(--musgo);
+}
+
+.resumen-cancelada .resumen-numero {
+    color: var(--rosa-texto);
+}
+
+@media (max-width: 860px) {
+    .resumen {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
